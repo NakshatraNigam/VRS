@@ -426,6 +426,10 @@ function saveState() {
 // 2. DOM INITIALIZATION & TAB SWITCHER
 // ============================================================================
 function initApp() {
+  if (typeof window !== 'undefined') {
+    if (window.__DRIVEPULSE_INITIALIZED__) return;
+    window.__DRIVEPULSE_INITIALIZED__ = true;
+  }
   initTabs();
   renderFleetCatalog();
   renderBookingsTable();
