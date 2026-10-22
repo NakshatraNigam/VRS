@@ -1,6 +1,6 @@
 /**
  * DrivePulse VRMS — Lightweight Zero-Dependency Local Dev Server
- * Compatible with Node.js v14+
+ * Located in scripts/ to ensure root directory remains purely static for Vercel CDN
  */
 
 const http = require('http');
@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const ROOT = path.resolve(__dirname);
+const ROOT = path.resolve(__dirname, '..');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -28,7 +28,6 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  // Normalize URL path and remove query parameters
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let safePath = decodeURIComponent(parsedUrl.pathname);
 
@@ -36,7 +35,6 @@ const server = http.createServer((req, res) => {
     safePath = '/index.html';
   }
 
-  // Prevent directory traversal attacks
   const normalizedPath = path.normalize(safePath).replace(/^(\.\.[/\\])+/, '');
   const filePath = path.join(ROOT, normalizedPath);
 

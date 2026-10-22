@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "DrivePulse — Enterprise Vehicle Rental Management System (VRMS)",
   "scripts": {
-    "dev": "node server.js",
-    "serve": "node server.js",
-    "generate-pdf": "node generate_pdf.js",
-    "screenshots": "node capture_screenshots.js"
+    "dev": "node scripts/server.js",
+    "serve": "node scripts/server.js",
+    "generate-pdf": "node scripts/generate_pdf.js",
+    "screenshots": "node scripts/capture_screenshots.js"
   },
   "keywords": [
     "vehicle-rental-system",

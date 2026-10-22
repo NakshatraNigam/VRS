@@ -8,13 +8,21 @@ const puppeteer = require('puppeteer-core');
 const path = require('path');
 const fs = require('fs');
 
-const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const PROJECT_ROOT = path.resolve(__dirname, '..');
+
+function getBrowserPath() {
+  const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+  const edgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
+  if (fs.existsSync(chromePath)) return chromePath;
+  if (fs.existsSync(edgePath)) return edgePath;
+  return chromePath;
+}
 
 async function generatePdf(groupName = 'B-19') {
   console.log(`Starting PDF compilation for Group Name: ${groupName}...`);
 
-  // Read report template
-  let templateContent = fs.readFileSync('report_template.html', 'utf-8');
+  const templatePath = path.join(PROJECT_ROOT, 'report_template.html');
+  let templateContent = fs.readFileSync(templatePath, 'utf-8');
 
   // Replace group name if different from B-19
   if (groupName !== 'B-19') {
@@ -23,11 +31,11 @@ async function generatePdf(groupName = 'B-19') {
   }
 
   // Write temporary rendered HTML
-  const tempHtmlPath = path.resolve(`temp_report_${groupName.replace(/[^a-zA-Z0-9_-]/g, '')}.html`);
+  const tempHtmlPath = path.join(PROJECT_ROOT, `temp_report_${groupName.replace(/[^a-zA-Z0-9_-]/g, '')}.html`);
   fs.writeFileSync(tempHtmlPath, templateContent, 'utf-8');
 
   const browser = await puppeteer.launch({
-    executablePath: CHROME_PATH,
+    executablePath: getBrowserPath(),
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
@@ -41,8 +49,8 @@ async function generatePdf(groupName = 'B-19') {
   // Wait for all images and web fonts to render cleanly
   await new Promise(r => setTimeout(r, 1500));
 
-  const standardPdfName = `${groupName}.pdf`;
-  const detailedPdfName = `${groupName}_Vehicle_Rental_Management_System.pdf`;
+  const standardPdfName = path.join(PROJECT_ROOT, `${groupName}.pdf`);
+  const detailedPdfName = path.join(PROJECT_ROOT, `${groupName}_Vehicle_Rental_Management_System.pdf`);
 
   console.log(`Generating PDF: ${standardPdfName}...`);
   await page.pdf({
@@ -61,7 +69,7 @@ async function generatePdf(groupName = 'B-19') {
   fs.copyFileSync(standardPdfName, detailedPdfName);
 
   // If group has a hyphen like B-19, also create B19.pdf for convenience
-  const noHyphenName = groupName.replace(/-/g, '') + '.pdf';
+  const noHyphenName = path.join(PROJECT_ROOT, groupName.replace(/-/g, '') + '.pdf');
   if (noHyphenName !== standardPdfName) {
     fs.copyFileSync(standardPdfName, noHyphenName);
     console.log(`Also created convenience alias: ${noHyphenName}`);
