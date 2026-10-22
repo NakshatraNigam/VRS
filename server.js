@@ -92,11 +92,15 @@ function serveFile(filePath, res) {
   });
 }
 
-server.listen(PORT, () => {
-  console.log('====================================================');
-  console.log('🚗 DrivePulse — Vehicle Rental Management System');
-  console.log(`🌐 Server running locally at: http://localhost:${PORT}`);
-  console.log(`📂 Serving directory: ${ROOT}`);
-  console.log('💡 Press Ctrl + C to stop the server');
-  console.log('====================================================');
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log('====================================================');
+    console.log('🚗 DrivePulse — Vehicle Rental Management System');
+    console.log(`🌐 Server running locally at: http://localhost:${PORT}`);
+    console.log(`📂 Serving directory: ${ROOT}`);
+    console.log('💡 Press Ctrl + C to stop the server');
+    console.log('====================================================');
+  });
+}
+
+module.exports = server;
