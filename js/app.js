@@ -4,6 +4,25 @@
  * Master Application Logic, State Management, and Analytics
  */
 
+// Node.js SSR / Vercel Serverless environment guard
+if (typeof window === 'undefined') {
+  global.window = global;
+}
+if (typeof document === 'undefined') {
+  global.document = {
+    addEventListener: () => {},
+    getElementById: () => null,
+    querySelectorAll: () => []
+  };
+}
+if (typeof localStorage === 'undefined') {
+  global.localStorage = {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {}
+  };
+}
+
 // ============================================================================
 // 1. DATA MODEL & INITIAL SEED STATE
 // ============================================================================
@@ -367,10 +386,22 @@ const INITIAL_BOOKINGS = [
   }
 ];
 
+function getInitialData(key, fallback) {
+  try {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const saved = localStorage.getItem(key);
+      if (saved) return JSON.parse(saved);
+    }
+  } catch (e) {
+    console.warn('Could not read from localStorage:', e);
+  }
+  return fallback;
+}
+
 // App State
 let state = {
-  vehicles: JSON.parse(localStorage.getItem('vrms_vehicles')) || INITIAL_VEHICLES,
-  bookings: JSON.parse(localStorage.getItem('vrms_bookings')) || INITIAL_BOOKINGS,
+  vehicles: getInitialData('vrms_vehicles', INITIAL_VEHICLES),
+  bookings: getInitialData('vrms_bookings', INITIAL_BOOKINGS),
   selectedCategory: 'ALL',
   selectedFuel: 'ALL',
   selectedBranch: 'ALL',
@@ -381,14 +412,20 @@ let state = {
 };
 
 function saveState() {
-  localStorage.setItem('vrms_vehicles', JSON.stringify(state.vehicles));
-  localStorage.setItem('vrms_bookings', JSON.stringify(state.bookings));
+  try {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      localStorage.setItem('vrms_vehicles', JSON.stringify(state.vehicles));
+      localStorage.setItem('vrms_bookings', JSON.stringify(state.bookings));
+    }
+  } catch (e) {
+    console.warn('Could not save to localStorage:', e);
+  }
 }
 
 // ============================================================================
 // 2. DOM INITIALIZATION & TAB SWITCHER
 // ============================================================================
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   initTabs();
   renderFleetCatalog();
   renderBookingsTable();
@@ -398,7 +435,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initDatabasePortal();
   initReportTab();
   initExportCsv();
-});
+}
+
+const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && (typeof process === 'undefined' || !process.versions || !process.versions.node);
+
+if (isBrowser) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
+}
 
 function initTabs() {
   const tabButtons = document.querySelectorAll('.nav-tab-btn');
@@ -1396,3 +1443,19 @@ function initExportCsv() {
   }
 }
 
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = (req, res) => {
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const htmlPath = path.join(__dirname, '..', 'index.html');
+      if (fs.existsSync(htmlPath)) {
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.statusCode = 200;
+        return res.end(fs.readFileSync(htmlPath, 'utf-8'));
+      }
+    } catch (e) {}
+    res.statusCode = 200;
+    res.end('DrivePulse VRMS Service Active');
+  };
+}
