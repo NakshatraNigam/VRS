@@ -1452,14 +1452,50 @@ if (typeof module !== 'undefined' && module.exports) {
     try {
       const fs = require('fs');
       const path = require('path');
-      const htmlPath = path.join(__dirname, '..', 'index.html');
-      if (fs.existsSync(htmlPath)) {
+
+      const searchDirs = [
+        __dirname,
+        process.cwd(),
+        path.join(__dirname, '..')
+      ];
+
+      const rootDir = searchDirs.find(d => fs.existsSync(path.join(d, 'index.html'))) || __dirname;
+      const rawUrl = (req.url || '/').split('?')[0].replace(/^\/+/, '');
+
+      if (!rawUrl || rawUrl === '' || rawUrl === 'index.html') {
+        const html = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
         res.statusCode = 200;
-        return res.end(fs.readFileSync(htmlPath, 'utf-8'));
+        return res.end(html);
       }
-    } catch (e) {}
-    res.statusCode = 200;
-    res.end('DrivePulse VRMS Service Active');
+
+      const filePath = path.join(rootDir, rawUrl);
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        const mimeTypes = {
+          '.css': 'text/css; charset=utf-8',
+          '.js': 'application/javascript; charset=utf-8',
+          '.html': 'text/html; charset=utf-8',
+          '.png': 'image/png',
+          '.jpg': 'image/jpeg',
+          '.svg': 'image/svg+xml',
+          '.pdf': 'application/pdf',
+          '.json': 'application/json; charset=utf-8'
+        };
+        const ext = path.extname(filePath).toLowerCase();
+        res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
+        res.statusCode = 200;
+        return res.end(fs.readFileSync(filePath));
+      }
+
+      // Default fallback: serve index.html
+      const html = fs.readFileSync(path.join(rootDir, 'index.html'), 'utf-8');
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.statusCode = 200;
+      return res.end(html);
+    } catch (e) {
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('Server Error: ' + e.message);
+    }
   };
 }
