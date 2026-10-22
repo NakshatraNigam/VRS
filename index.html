@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrivePulse — Vehicle Rental Management System | Group B-19 Industry Practice</title>
+  <meta name="description" content="State-of-the-art Vehicle Rental Management System with complete 3NF Database Design, Real-Time Fleet Operations, Dynamic Pricing, and Academic Submission Package.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="app-header">
+    <div class="brand-container" id="brand-home-btn">
+      <div class="brand-logo-icon">🚗</div>
+      <div class="brand-text">
+        <h1>DrivePulse</h1>
+        <span>Vehicle Rental System</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab-btn active" data-tab="tab-fleet" id="nav-btn-fleet">
+        <span>🚗</span> Fleet Catalog
+      </button>
+      <button class="nav-tab-btn" data-tab="tab-bookings" id="nav-btn-bookings">
+        <span>📋</span> My Bookings
+      </button>
+      <button class="nav-tab-btn" data-tab="tab-admin" id="nav-btn-admin">
+        <span>📊</span> Admin Portal
+      </button>
+      <button class="nav-tab-btn" data-tab="tab-database" id="nav-btn-database">
+        <span>🗄️</span> Database & ERD
+      </button>
+      <button class="nav-tab-btn" data-tab="tab-report" id="nav-btn-report">
+        <span>📄</span> Submission PDF
+      </button>
+    </nav>
+
+    <!-- Header Right Badges -->
+    <div class="header-right">
+      <div class="badge-group" id="header-group-badge">
+        <span>🎓</span>
+        <span>GROUP B-19</span>
+      </div>
+      <button class="btn-primary" id="header-pdf-download-btn">
+        <span>📥</span> Download PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= TAB 1: FLEET CATALOG (CUSTOMER VIEW) ================= -->
+  <main id="tab-fleet" class="tab-content active">
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-pill">
+        <span>✨</span> Industry Practice College Project • Group B-19 Submission
+      </div>
+      <h2 class="hero-title">Drive The Future With <span class="gradient-text">DrivePulse</span></h2>
+      <p class="hero-subtitle">
+        Enterprise-grade vehicle rental platform featuring real-time telematics, instant automated contract generation, and transparent pricing.
+      </p>
+
+      <!-- Search Banner -->
+      <div class="search-banner" id="search-banner-container">
+        <div class="search-field">
+          <label for="pickup-branch-select">📍 Pick-Up Location</label>
+          <select id="pickup-branch-select">
+            <option value="1">Downtown Hub & HQ (NY)</option>
+            <option value="2">Airport Terminal 1 (NY)</option>
+            <option value="3">Silicon Valley Tech Hub (CA)</option>
+            <option value="4">Westside Station (CA)</option>
+          </select>
+        </div>
+
+        <div class="search-field">
+          <label for="search-start-date">📅 Pick-Up Date</label>
+          <input type="date" id="search-start-date" value="2026-09-28">
+        </div>
+
+        <div class="search-field">
+          <label for="search-end-date">📅 Return Date</label>
+          <input type="date" id="search-end-date" value="2026-10-02">
+        </div>
+
+        <div class="search-field">
+          <label for="search-category-select">🏷️ Category</label>
+          <select id="search-category-select">
+            <option value="ALL">All Categories</option>
+            <option value="Electric">⚡ Electric (EV)</option>
+            <option value="Luxury">👑 Executive Luxury</option>
+            <option value="SUV">🚙 Premium SUV</option>
+            <option value="Sports">🏎️ Sports Coupe</option>
+            <option value="Sedan">🚗 Comfort Sedan</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" id="btn-search-fleet" style="height: 42px;">
+          <span>🔍</span> Search Fleet
+        </button>
+      </div>
+    </section>
+
+    <!-- Fleet Showcase Section -->
+    <section class="container" id="fleet-catalog-section">
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">Available Fleet Showcase</h3>
+          <p class="section-subtitle">Select from high-performance electrics, luxury flagships, and premium SUVs</p>
+        </div>
+        <div class="filter-extra">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="live-keyword-filter" placeholder="Search make or model...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="category-pills">
+          <button class="category-pill active" data-cat="ALL">All Vehicles (<span id="count-all">12</span>)</button>
+          <button class="category-pill" data-cat="Electric">⚡ Electric (3)</button>
+          <button class="category-pill" data-cat="Luxury">👑 Luxury (2)</button>
+          <button class="category-pill" data-cat="SUV">🚙 Premium SUV (3)</button>
+          <button class="category-pill" data-cat="Sports">🏎️ Sports (2)</button>
+          <button class="category-pill" data-cat="Sedan">🚗 Sedans (2)</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <label style="font-size: 0.8rem; color: var(--text-muted);">Fuel:</label>
+          <select id="filter-fuel" style="background: var(--bg-card); color: #fff; border: 1px solid var(--border-subtle); padding: 0.35rem 0.65rem; border-radius: 6px; font-size: 0.8rem;">
+            <option value="ALL">All Fuel Types</option>
+            <option value="Electric">Electric</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Vehicle Card Grid -->
+      <div class="fleet-grid" id="fleet-grid-cards">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Platform Highlights Section -->
+    <section class="container" style="border-top: 1px solid var(--border-subtle); padding-top: 3.5rem;">
+      <div class="section-header" style="text-align: center; justify-content: center;">
+        <div>
+          <h3 class="section-title">Built For Industrial Reliability</h3>
+          <p class="section-subtitle">Key architectural capabilities engineered into the DrivePulse rental engine</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚡</div>
+          <h4 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.5rem;">Smart Telematics</h4>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Live odometer synchronisation, battery/fuel level auditing, and predictive maintenance tracking.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">📜</div>
+          <h4 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.5rem;">Digital Rental Contracts</h4>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Cryptographic digital signature hashes, statutory compliance terms, and verifiable booking tokens.</p>
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">🛡️</div>
+          <h4 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.5rem;">Automated Inspections</h4>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Pre-rental and post-rental condition audits ensuring damage deposit transparency and instant settlement.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= TAB 2: MY BOOKINGS (CUSTOMER PORTAL) ================= -->
+  <section id="tab-bookings" class="tab-content" style="display: none;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">My Rental Bookings & Agreements</h3>
+          <p class="section-subtitle">Manage ongoing rentals, view legal agreements, and download invoice vouchers</p>
+        </div>
+        <button class="btn-primary" id="btn-new-rental-shortcut">
+          <span>+</span> Book Another Vehicle
+        </button>
+      </div>
+
+      <div class="table-container">
+        <div class="table-header-bar">
+          <h4>Customer Rental Records</h4>
+          <span style="font-size: 0.8rem; color: var(--text-dim);" id="booking-records-count">Showing 6 Bookings</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table" id="customer-bookings-table">
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Vehicle</th>
+                <th>Pick-Up & Return</th>
+                <th>Duration</th>
+                <th>Total Paid</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-table-body">
+              <!-- Rendered via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 3: ADMIN & OPERATIONS PORTAL ================= -->
+  <section id="tab-admin" class="tab-content" style="display: none;">
+    <div class="container">
+      <div class="admin-header">
+        <div>
+          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;">Fleet Operations & Command Center</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Live fleet status, revenue tracking, and booking dispatch</p>
+        </div>
+        <div style="display: flex; gap: 0.85rem;">
+          <button class="btn-secondary" id="btn-export-fleet-csv">
+            <span>📊</span> Export Fleet CSV
+          </button>
+          <button class="btn-primary" id="btn-add-vehicle-modal">
+            <span>+</span> Add Vehicle
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Metrics Cards -->
+      <div class="kpi-row">
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-lbl">Total Fleet Inventory</div>
+          <div class="kpi-val" id="kpi-fleet-count">12</div>
+          <div class="kpi-sub"><span>●</span> 4 Regional Stations</div>
+        </div>
+
+        <div class="kpi-card kpi-emerald">
+          <div class="kpi-lbl">Total Gross Revenue</div>
+          <div class="kpi-val" id="kpi-revenue-total">$4,228.40</div>
+          <div class="kpi-sub"><span>▲</span> +18.4% this billing cycle</div>
+        </div>
+
+        <div class="kpi-card kpi-cyan">
+          <div class="kpi-lbl">Active Vehicles On Road</div>
+          <div class="kpi-val" id="kpi-active-rentals">3</div>
+          <div class="kpi-sub"><span>●</span> 25.0% Fleet Deployed</div>
+        </div>
+
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-lbl">Under Maintenance</div>
+          <div class="kpi-val" id="kpi-maintenance-count">1</div>
+          <div class="kpi-sub"><span>⚠️</span> 1 Scheduled Overhaul</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h4>
+            <span>📈 Monthly Rental Revenue Performance</span>
+            <span style="font-size: 0.75rem; color: var(--accent-cyan); font-weight: 600;">FY 2026 Audit</span>
+          </h4>
+          <canvas id="revenue-chart-canvas" width="600" height="230" style="width: 100%; height: 230px;"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <h4>
+            <span>🏷️ Category Distribution</span>
+            <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 600;">By Units</span>
+          </h4>
+          <canvas id="category-donut-canvas" width="300" height="230" style="width: 100%; height: 230px;"></canvas>
+        </div>
+      </div>
+
+      <!-- Fleet Inventory Management Table -->
+      <div class="table-container">
+        <div class="table-header-bar">
+          <h4>Fleet Inventory & Telematics Controller</h4>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Live Database Records</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table" id="admin-fleet-table">
+            <thead>
+              <tr>
+                <th>Vehicle</th>
+                <th>License Plate</th>
+                <th>Category</th>
+                <th>Daily Rate</th>
+                <th>Odometer</th>
+                <th>Branch Hub</th>
+                <th>Status</th>
+                <th>Toggle Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-fleet-tbody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Maintenance Logs Table -->
+      <div class="table-container">
+        <div class="table-header-bar">
+          <h4>Fleet Maintenance & Inspection Audit Logs</h4>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Service Records</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Log ID</th>
+                <th>Vehicle</th>
+                <th>Service Type</th>
+                <th>Service Date</th>
+                <th>Odometer</th>
+                <th>Cost</th>
+                <th>Provider</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>#ML-101</code></td>
+                <td>Ford Mustang GT (MUS-V88-CA)</td>
+                <td>Suspension Tuning & Brake Pad Replacement</td>
+                <td>2026-09-25</td>
+                <td>21,400 km</td>
+                <td><strong>$680.00</strong></td>
+                <td>Apex Performance Center</td>
+                <td><span class="status-badge status-maintenance">IN_PROGRESS</span></td>
+              </tr>
+              <tr>
+                <td><code>#ML-102</code></td>
+                <td>Audi Q7 55 TFSI (AUDI-Q77-NY)</td>
+                <td>Scheduled 30,000 km Major Service</td>
+                <td>2026-09-10</td>
+                <td>28,500 km</td>
+                <td><strong>$420.00</strong></td>
+                <td>Audi Authorized Center</td>
+                <td><span class="status-badge status-available">COMPLETED</span></td>
+              </tr>
+              <tr>
+                <td><code>#ML-103</code></td>
+                <td>Tesla Model 3 LR (EV-789-NY)</td>
+                <td>EV Battery Health & High-Voltage Diagnostics</td>
+                <td>2026-08-14</td>
+                <td>16,200 km</td>
+                <td><strong>$150.00</strong></td>
+                <td>Tesla Supercare Hub</td>
+                <td><span class="status-badge status-available">COMPLETED</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 4: DATABASE DESIGN & ERD ================= -->
+  <section id="tab-database" class="tab-content" style="display: none;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">Relational Database Design & ER Architecture</h3>
+          <p class="section-subtitle">Fully normalized 3NF schema, referential integrity constraints, and operational SQL queries</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <a href="database/schema.sql" download="schema.sql" class="btn-secondary">
+            <span>💾</span> Download schema.sql
+          </a>
+          <button class="btn-primary" id="btn-run-all-queries">
+            <span>⚡</span> Execute Live Queries
+          </button>
+        </div>
+      </div>
+
+      <!-- Visual ERD Diagram Card -->
+      <div class="erd-preview-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: #fff;">
+            <span>📐 Entity Relationship Diagram (ERD) — 3NF Relational Model</span>
+          </h4>
+          <span style="font-size: 0.8rem; color: var(--accent-cyan);">Click image to open full 1600x1100 resolution</span>
+        </div>
+        <a href="database/erd_diagram.png" target="_blank" title="View Full ERD Diagram">
+          <img src="database/erd_diagram.png" alt="Entity Relationship Diagram (ERD) for Vehicle Rental Management System" style="max-height: 520px; object-fit: contain;">
+        </a>
+      </div>
+
+      <!-- Live SQL Query Demonstration Runner -->
+      <div class="query-runner-card">
+        <h4 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+          <span>💻 Interactive SQL Engine & Query Results</span>
+        </h4>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+          Execute industry-standard queries against the normalized database to inspect real-time query optimization and reporting data:
+        </p>
+
+        <!-- Query Selector Tabs -->
+        <div class="query-tabs">
+          <button class="query-tab-btn active" data-query-idx="0">Q1: Active Rentals & Driver Details</button>
+          <button class="query-tab-btn" data-query-idx="1">Q2: Fleet Utilization by Category</button>
+          <button class="query-tab-btn" data-query-idx="2">Q3: Branch Gross Revenue Audit</button>
+          <button class="query-tab-btn" data-query-idx="3">Q4: Customer Lifetime Spend Ranking</button>
+          <button class="query-tab-btn" data-query-idx="4">Q5: Maintenance Expenditure Log</button>
+        </div>
+
+        <pre class="query-code-pre" id="current-query-code">-- Click a tab to preview the SQL query syntax</pre>
+
+        <!-- Query Execution Results Output -->
+        <div style="overflow-x: auto; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); padding: 0.5rem;">
+          <table class="data-table" id="query-results-table">
+            <thead id="query-results-thead"></thead>
+            <tbody id="query-results-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Relational Data Dictionary -->
+      <div class="table-container">
+        <div class="table-header-bar">
+          <h4>3NF Relational Tables & Data Dictionary</h4>
+          <span style="font-size: 0.8rem; color: var(--accent-emerald);">10 Normalized Entities</span>
+        </div>
+        <div style="padding: 1.5rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
+            
+            <div style="background: var(--bg-secondary); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h5 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 0.5rem;">1. branches</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">PK: <code>branch_id</code> • Stores physical rental pickup/dropoff stations, operating hours, and dispatch coordinates.</p>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h5 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 0.5rem;">2. users & customer_profiles</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">PK: <code>user_id</code>, <code>customer_id</code> • Handles authentication, driver's license KYC validation, and loyalty tier rankings.</p>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h5 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 0.5rem;">3. vehicle_categories</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">PK: <code>category_id</code> • Defines pricing tiers (EV, Luxury, SUV, Sports), base rates, and driver age eligibility.</p>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h5 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 0.5rem;">4. vehicles</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">PK: <code>vehicle_id</code> • FKs to category and branch. Tracks VIN, plate, mileage, fuel type, rates, and operational status.</p>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h5 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 0.5rem;">5. bookings (Central Fact Entity)</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">PK: <code>booking_id</code> • Binds customer, vehicle, branches, dates, rates, taxes, and status in full 3NF conformity.</p>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <h5 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 0.5rem;">6. rental_agreements & payments</h5>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">PK: <code>agreement_id</code>, <code>payment_id</code> • Digital contract agreement tokens, transaction references, invoices, and deposit holds.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TAB 5: SUBMISSION REPORT & PDF DOWNLOAD ================= -->
+  <section id="tab-report" class="tab-content" style="display: none;">
+    <div class="container" style="max-width: 900px;">
+      <div class="section-header">
+        <div>
+          <h3 class="section-title">Industry Practice Submission Package</h3>
+          <p class="section-subtitle">Vehicle Rental Management System — Group Project Deliverables</p>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+          <div>
+            <h4 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff;">Assignment Compliance & Overview</h4>
+            <p style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 600;">Industry Practice Homework • Topic: Vehicle Rental Management System</p>
+          </div>
+          <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #10b981; font-weight: 700; padding: 0.4rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem;">
+            ✓ 100% IMPLEMENTED
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h5 style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 0.6rem;">Required Deliverables Implemented:</h5>
+          <ul style="color: var(--text-muted); font-size: 0.88rem; padding-left: 1.5rem; line-height: 1.8;">
+            <li><strong>1. Frontend / UI Development:</strong> Complete Customer Fleet Portal, Search & Filter Engine, Dynamic Pricing Calculator with Add-ons, Customer Booking Flow, Driver License Verification, Payment Processing, Printable Voucher Generator, Admin Fleet Operations, and Visual Analytics.</li>
+            <li><strong>2. Database Design:</strong> Fully normalized 3NF schema, 10 core relational tables, foreign key constraints, indexes, triggers, reporting views, seed data, and high-definition Entity-Relationship Diagram (ERD).</li>
+            <li><strong>3. Output Screenshots compiled in a single PDF named as Group Name:</strong> Generated as <code>B-19.pdf</code> and <code>B-19_Vehicle_Rental_Management_System.pdf</code> containing academic cover page, schema documentation, ERD, and full UI screenshots.</li>
+          </ul>
+        </div>
+
+        <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1.25rem; border: 1px solid var(--border-subtle); margin-bottom: 1.75rem;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+            Configured Group Name (e.g. B-19):
+          </label>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <input type="text" id="input-custom-group-name" value="B-19" style="background: var(--bg-card); color: #fff; border: 1px solid var(--border-subtle); padding: 0.65rem 1rem; border-radius: 6px; font-weight: 700; font-size: 1rem; width: 140px; text-transform: uppercase;">
+            <button class="btn-primary" id="btn-generate-custom-pdf" style="flex: 1; min-width: 200px; justify-content: center;">
+              <span>📄</span> Download Submission PDF (B-19.pdf)
+            </button>
+            <a href="report_template.html?group=B-19" target="_blank" id="btn-preview-report" class="btn-secondary" style="flex: 1; min-width: 200px; justify-content: center; text-decoration: none;">
+              <span>👁️</span> Preview & Print 12-Page Report
+            </a>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-dim); display: block; margin-top: 0.4rem;">
+            Single-click PDF compiled according to instructions with all output screenshots and database documentation.
+          </span>
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="database/schema.sql" download="schema.sql" class="btn-secondary" style="flex: 1; justify-content: center;">
+            <span>💾</span> Download SQL Schema (.sql)
+          </a>
+          <a href="database/erd_diagram.png" download="erd_diagram.png" class="btn-secondary" style="flex: 1; justify-content: center;">
+            <span>📐</span> Download ERD Diagram (.png)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL: VEHICLE DETAILS & BOOKING CALCULATOR ================= -->
+  <div class="modal-overlay" id="booking-modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-vehicle-title">Tesla Model 3 Long Range</h3>
+        <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="booking-grid">
+          <!-- Left Column: Booking Form -->
+          <div class="booking-form-col">
+            <h4>1. Schedule & Protection Options</h4>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+              <div class="form-group">
+                <label>Pick-Up Date</label>
+                <input type="date" id="modal-pickup-date" value="2026-09-28">
+              </div>
+              <div class="form-group">
+                <label>Return Date</label>
+                <input type="date" id="modal-return-date" value="2026-10-02">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Pick-Up / Drop-Off Station</label>
+              <select id="modal-station-select">
+                <option value="1">Downtown Hub & HQ (100 Metro Blvd)</option>
+                <option value="2">Airport Terminal 1 (Terminal Level 2)</option>
+                <option value="3">Silicon Valley Tech Hub (San Jose)</option>
+                <option value="4">Westside Station (Oceanfront Ave)</option>
+              </select>
+            </div>
+
+            <!-- Optional Add-ons -->
+            <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.4rem;">
+              Recommended Trip Protection & Add-ons
+            </label>
+            <div class="addons-box">
+              <div class="addon-row">
+                <label class="addon-label">
+                  <input type="checkbox" id="addon-cdw" checked>
+                  <span>Collision Damage Waiver (Zero Deductible)</span>
+                </label>
+                <span class="addon-price">+$15 / day</span>
+              </div>
+              <div class="addon-row">
+                <label class="addon-label">
+                  <input type="checkbox" id="addon-gps">
+                  <span>GPS Satellite Navigator & 5G Wi-Fi Hub</span>
+                </label>
+                <span class="addon-price">+$8 / day</span>
+              </div>
+              <div class="addon-row">
+                <label class="addon-label">
+                  <input type="checkbox" id="addon-seat">
+                  <span>Child Safety Seat (ISOFIX Certified)</span>
+                </label>
+                <span class="addon-price">+$5 / day</span>
+              </div>
+            </div>
+
+            <h4>2. Driver Verification Details</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+              <div class="form-group">
+                <label>Full Legal Name</label>
+                <input type="text" id="cust-full-name" value="Sarah Jenkins">
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="cust-email" value="sarah.jenkins@example.com">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+              <div class="form-group">
+                <label>Driver's License No.</label>
+                <input type="text" id="cust-license-no" value="DL-NY-9823412">
+              </div>
+              <div class="form-group">
+                <label>Contact Phone</label>
+                <input type="tel" id="cust-phone" value="+1 (555) 201-1101">
+              </div>
+            </div>
+
+            <!-- Promo Code Input -->
+            <div class="form-group">
+              <label>Promo Code (Try: <code>COLLEGE20</code> for 20% off)</label>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="promo-code-input" placeholder="Enter coupon code" style="text-transform: uppercase;">
+                <button class="btn-secondary" id="btn-apply-promo" style="padding: 0.5rem 1rem;">Apply</button>
+              </div>
+              <span id="promo-message" style="font-size: 0.72rem; color: var(--accent-emerald); display: none; margin-top: 0.3rem;"></span>
+            </div>
+          </div>
+
+          <!-- Right Column: Vehicle Preview & Dynamic Price Breakdown -->
+          <div class="booking-summary-col">
+            <h4>Rental Cost Breakdown</h4>
+
+            <div style="border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1.25rem; border: 1px solid var(--border-subtle); height: 160px; position: relative;">
+              <img id="modal-vehicle-img" src="" alt="Selected Vehicle" style="width: 100%; height: 100%; object-fit: cover;">
+              <div id="modal-vehicle-category-badge" class="card-badge badge-electric" style="top: 10px; left: 10px;">ELECTRIC</div>
+            </div>
+
+            <div class="cost-breakdown">
+              <div class="breakdown-row">
+                <span>Vehicle Daily Rate:</span>
+                <span id="calc-base-rate">$95.00 / day</span>
+              </div>
+              <div class="breakdown-row">
+                <span>Duration:</span>
+                <span id="calc-duration">4 Days</span>
+              </div>
+              <div class="breakdown-row">
+                <span>Subtotal:</span>
+                <span id="calc-subtotal">$380.00</span>
+              </div>
+              <div class="breakdown-row">
+                <span>Trip Add-ons:</span>
+                <span id="calc-addons">$60.00</span>
+              </div>
+              <div class="breakdown-row">
+                <span>State Rental Tax (8%):</span>
+                <span id="calc-tax">$35.20</span>
+              </div>
+              <div class="breakdown-row" id="row-discount" style="display: none; color: var(--accent-emerald);">
+                <span>Student Discount (20%):</span>
+                <span id="calc-discount">-$76.00</span>
+              </div>
+              <div class="breakdown-row">
+                <span>Refundable Security Deposit:</span>
+                <span id="calc-deposit">$250.00</span>
+              </div>
+
+              <div class="breakdown-row total-row">
+                <span>Total Amount Due:</span>
+                <span class="total-val" id="calc-grand-total">$725.20</span>
+              </div>
+            </div>
+
+            <!-- Simulated Payment Selection -->
+            <div class="form-group">
+              <label>Payment Method</label>
+              <select id="payment-method-select">
+                <option value="Credit Card">💳 Credit Card (Instant Settlement)</option>
+                <option value="Debit Card">💳 Debit Card</option>
+                <option value="UPI / NetBanking">📱 UPI / Instant NetBanking</option>
+                <option value="Cash">💵 Pay at Rental Counter</option>
+              </select>
+            </div>
+
+            <button class="btn-primary" id="btn-confirm-booking" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 1rem;">
+              <span>🔒</span> Confirm & Generate Contract
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: PRINTABLE BOOKING CONFIRMATION & VOUCHER ================= -->
+  <div class="modal-overlay" id="voucher-modal-overlay">
+    <div class="modal-box" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Official Rental Agreement & Voucher</h3>
+        <button class="modal-close-btn" id="voucher-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="voucher-card" id="printable-voucher-content">
+          <div class="voucher-header">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+                <span style="font-size: 1.4rem;">🚗</span>
+                <strong style="font-size: 1.25rem; font-family: var(--font-heading);">DrivePulse Fleet Mobility</strong>
+              </div>
+              <span style="font-size: 0.75rem; color: #64748b;">Industry Practice Homework Project • Group B-19</span>
+            </div>
+            <div style="text-align: right;">
+              <div class="voucher-ref" id="vouch-ref-code">DP-2026-8941</div>
+              <span style="font-size: 0.72rem; color: #16a34a; font-weight: 700; background: #dcfce7; padding: 0.2rem 0.5rem; border-radius: 4px;">PAID & CONFIRMED</span>
+            </div>
+          </div>
+
+          <div class="voucher-grid">
+            <div>
+              <div class="voucher-item-lbl">Renter Name</div>
+              <div class="voucher-item-val" id="vouch-renter-name">Sarah Jenkins</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Driver License No</div>
+              <div class="voucher-item-val" id="vouch-license-no">DL-NY-9823412</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Reserved Vehicle</div>
+              <div class="voucher-item-val" id="vouch-vehicle-name">Tesla Model 3 Long Range</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Registration Plate</div>
+              <div class="voucher-item-val" id="vouch-plate">EV-789-NY</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Pick-Up Schedule</div>
+              <div class="voucher-item-val" id="vouch-pickup-date">28 Sep 2026, 09:00 AM</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Return Schedule</div>
+              <div class="voucher-item-val" id="vouch-return-date">02 Oct 2026, 06:00 PM</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Pickup Station</div>
+              <div class="voucher-item-val" id="vouch-branch">Downtown Hub & HQ (NY)</div>
+            </div>
+            <div>
+              <div class="voucher-item-lbl">Total Settlement</div>
+              <div class="voucher-item-val" style="color: #1e40af;" id="vouch-total-paid">$604.80</div>
+            </div>
+          </div>
+
+          <div style="background: #f1f5f9; padding: 0.85rem; border-radius: 6px; font-size: 0.72rem; color: #475569; margin-bottom: 1rem;">
+            <strong>Statutory Terms:</strong> The vehicle must be returned with identical fuel/charge levels. Security deposit will be refunded automatically within 24 hours post vehicle check-in condition audit. Digital Signature Token: <code>e3b0c44298fc1c149afbf4c8996fb92427ae</code>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 0.85rem;">
+            <span style="font-size: 0.7rem; color: #94a3b8;">Generated by DrivePulse Engine v2.4 • Group B-19</span>
+            <button class="btn-primary" onclick="window.print()" style="padding: 0.45rem 1rem; font-size: 0.8rem;">
+              <span>🖨️</span> Print Voucher
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ADD VEHICLE (ADMIN) ================= -->
+  <div class="modal-overlay" id="add-vehicle-modal-overlay">
+    <div class="modal-box" style="max-width: 550px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Fleet Vehicle</h3>
+        <button class="modal-close-btn" id="add-vehicle-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="add-vehicle-form">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+            <div class="form-group">
+              <label>Vehicle Make</label>
+              <input type="text" id="add-make" placeholder="e.g. Mercedes-Benz" required>
+            </div>
+            <div class="form-group">
+              <label>Model</label>
+              <input type="text" id="add-model" placeholder="e.g. E-Class Avantgarde" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+            <div class="form-group">
+              <label>License Plate</label>
+              <input type="text" id="add-plate" placeholder="e.g. BENZ-808-NY" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="add-category">
+                <option value="Luxury">Executive Luxury</option>
+                <option value="Electric">Electric (EV)</option>
+                <option value="SUV">Premium SUV</option>
+                <option value="Sports">Sports Coupe</option>
+                <option value="Sedan">Comfort Sedan</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+            <div class="form-group">
+              <label>Daily Rate ($)</label>
+              <input type="number" id="add-rate" value="110.00" step="5" required>
+            </div>
+            <div class="form-group">
+              <label>Fuel Type</label>
+              <select id="add-fuel">
+                <option value="Petrol">Petrol</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Diesel">Diesel</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Image URL (or Unsplash photo)</label>
+            <input type="url" id="add-img" value="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80">
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;">
+            <span>+</span> Save Vehicle to Fleet
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-academic-badge">
+      🎓 Industry Practice College Homework • Topic: Vehicle Rental Management System
+    </div>
+    <p>Project Authors: <strong>Group B-19</strong> • Integrated Frontend & 3NF Relational Database Architecture</p>
+    <p style="margin-top: 0.4rem; font-size: 0.75rem;">
+      Full compliance with relational schema standards, operational analytics, dynamic booking calculations, and PDF reporting.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

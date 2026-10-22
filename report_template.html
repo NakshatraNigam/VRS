@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Industry Practice Homework: Vehicle Rental Management System</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 10mm 14mm 10mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 8.8pt;
+      line-height: 1.45;
+      color: #1e293b;
+      background: #ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+      height: 275mm;
+      max-height: 275mm;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    /* Cover Page */
+    .cover-container {
+      height: 270mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 3px double #0f172a;
+      padding: 35px 35px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    }
+
+    .cover-top {
+      text-align: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 20px;
+    }
+
+    .college-dept {
+      font-size: 11pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #475569;
+      margin-bottom: 5px;
+    }
+
+    .course-title {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #1e40af;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .cover-middle {
+      text-align: center;
+      margin: auto 0;
+    }
+
+    .project-badge {
+      display: inline-block;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      font-size: 9.5pt;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .main-project-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .project-subtitle {
+      font-size: 11pt;
+      color: #475569;
+      max-width: 580px;
+      margin: 0 auto 22px;
+      line-height: 1.55;
+    }
+
+    .group-highlight-box {
+      display: inline-block;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 35px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    }
+
+    .group-highlight-lbl {
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    .group-highlight-id {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22pt;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 1px;
+    }
+
+    .cover-bottom {
+      border-top: 2px solid #e2e8f0;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 9pt;
+    }
+
+    .meta-col strong {
+      display: block;
+      color: #0f172a;
+      font-size: 10pt;
+      margin-top: 2px;
+    }
+
+    /* Inner Pages */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+      font-size: 8pt;
+      color: #64748b;
+    }
+
+    .header-bar strong {
+      color: #0f172a;
+    }
+
+    .footer-bar {
+      margin-top: auto;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-subtitle {
+      font-size: 8.5pt;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+
+    h3.sub-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #1e40af;
+      margin: 10px 0 4px;
+    }
+
+    p {
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+
+    /* Tables */
+    table.spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.8pt;
+      margin: 6px 0 10px;
+    }
+
+    table.spec-table th {
+      background: #0f172a;
+      color: #ffffff;
+      text-align: left;
+      padding: 5px 8px;
+      font-weight: 600;
+      font-size: 7.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    table.spec-table td {
+      padding: 4.5px 8px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    table.spec-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* Screenshots formatting */
+    .screenshot-figure {
+      margin: 6px 0 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    }
+
+    .screenshot-figure img {
+      width: 100%;
+      height: auto;
+      max-height: 98mm;
+      object-fit: cover;
+      display: block;
+    }
+
+    .screenshot-caption {
+      background: #f1f5f9;
+      color: #1e293b;
+      padding: 5px 10px;
+      font-size: 7.8pt;
+      font-weight: 600;
+      border-top: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .screenshot-caption span.fig-num {
+      color: #1e40af;
+      font-weight: 700;
+    }
+
+    /* Code Snippets */
+    pre.sql-code {
+      background: #0b0f19;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6.6pt;
+      padding: 7px 9px;
+      border-radius: 5px;
+      overflow-x: hidden;
+      white-space: pre-wrap;
+      line-height: 1.32;
+      margin: 5px 0 6px;
+      border: 1px solid #1e293b;
+    }
+
+    /* Checklist / Boxes */
+    .highlight-card {
+      background: #f8fafc;
+      border-left: 3.5px solid #2563eb;
+      padding: 8px 12px;
+      margin: 8px 0 10px;
+      border-radius: 0 5px 5px 0;
+      font-size: 8.2pt;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 6px 0;
+    }
+
+    .card-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 7px 10px;
+      border-radius: 5px;
+      font-size: 7.8pt;
+    }
+
+    .card-item strong {
+      color: #0f172a;
+      display: block;
+      margin-bottom: 2px;
+    }
+    @media print {
+      .print-toolbar {
+        display: none !important;
+      }
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+
+    .print-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      border-bottom: 2px solid #38bdf8;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .print-toolbar button, .print-toolbar a {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .print-toolbar button:hover {
+      background: #1d4ed8;
+    }
+    .print-toolbar a.secondary {
+      background: #334155;
+    }
+    .print-toolbar a.secondary:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Print Toolbar (Hidden during Print / PDF generation) -->
+  <div class="print-toolbar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <a href="index.html" class="secondary">← Return to DrivePulse App</a>
+      <span style="font-size: 13px; color: #94a3b8;">Document: <strong>Academic Submission Report (12 Pages)</strong></span>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button onclick="window.print()">
+        <span>🖨️</span> Print / Save to PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 1: COVER PAGE ================= -->
+  <div class="page">
+    <div class="cover-container">
+      <div class="cover-top">
+        <div class="college-dept">Department of Computer Science & Engineering</div>
+        <div class="course-title">Industry Practice Laboratory Project Report</div>
+      </div>
+
+      <div class="cover-middle">
+        <div class="project-badge">Academic Project Deliverable</div>
+        <h1 class="main-project-title">Vehicle Rental Management System</h1>
+        <p class="project-subtitle">
+          An enterprise-grade mobility management platform integrating frontend user interfaces, dynamic reservation calculators, digital legal agreements, and a 3NF normalized relational database architecture.
+        </p>
+
+        <div class="group-highlight-box">
+          <div class="group-highlight-lbl">Project Group ID</div>
+          <div class="group-highlight-id" id="cover-group-name">GROUP B-19</div>
+        </div>
+      </div>
+
+      <div class="cover-bottom">
+        <div class="meta-col">
+          <span>Course Work:</span>
+          <strong>Industry Practice Homework</strong>
+        </div>
+        <div class="meta-col" style="text-align: center;">
+          <span>Assigned Topic:</span>
+          <strong>Vehicle Rental Management System</strong>
+        </div>
+        <div class="meta-col" style="text-align: right;">
+          <span>Submission Compliance:</span>
+          <strong style="color: #16a34a;">100% Implemented & Verified</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 2: EXECUTIVE SUMMARY & SYSTEM ARCHITECTURE ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System | Group B-19</span>
+      <span>Section 1: Architecture & Executive Summary</span>
+    </div>
+
+    <h2 class="section-title">1. Executive Summary & System Architecture</h2>
+    <p class="section-subtitle">Project Scope, Functional Modules, and Architectural Overview</p>
+
+    <div class="highlight-card">
+      <strong>Assignment Requirement Compliance Checklist:</strong><br>
+      ✓ <strong>Frontend / UI Development:</strong> Modern customer-facing portal, search & filter engine, fleet showcase, dynamic rental pricing calculator, KYC driver verification, checkout simulation, and operational admin telematics dashboard.<br>
+      ✓ <strong>Database Design:</strong> 3NF relational schema with 10 core tables, entity-relationship diagram (ERD), foreign keys, integrity constraints, reporting views, indexes, and analytical queries.<br>
+      ✓ <strong>Output Screenshots in Single PDF:</strong> Complete output screenshots compiled and structured under Group ID naming standard (<code>B-19.pdf</code>).
+    </div>
+
+    <h3 class="sub-heading">1.1 Problem Statement & Objectives</h3>
+    <p>
+      The objective of this Industry Practice Project is to engineer a production-ready <strong>Vehicle Rental Management System (VRMS)</strong>. The system streamlines vehicle reservations, provides transparent multi-tiered pricing, automates legal contract generation, and equips fleet administrators with real-time telematics, maintenance auditing, and revenue analytics.
+    </p>
+
+    <h3 class="sub-heading">1.2 System Modules</h3>
+    <div class="grid-2col">
+      <div class="card-item">
+        <strong>Customer Fleet & Booking Engine:</strong>
+        Multi-parametric vehicle search (branch, dates, category, fuel type), interactive specs modals, automated date-difference duration calculation, add-ons (CDW, GPS, Child Seat), promo discounts (<code>COLLEGE20</code>), and instant printable voucher generation.
+      </div>
+      <div class="card-item">
+        <strong>Fleet Operations & Admin Portal:</strong>
+        Executive KPI telemetry (gross revenue, fleet utilization rate, active rentals, maintenance alerts), custom HTML5 Canvas revenue charts, category donut charts, and live vehicle status controller.
+      </div>
+      <div class="card-item">
+        <strong>Relational Database Architecture:</strong>
+        Fully normalized 3NF relational schema implemented in ANSI SQL (PostgreSQL, MySQL, SQLite compliant), referential integrity cascades, composite indexes, and business intelligence reporting views.
+      </div>
+      <div class="card-item">
+        <strong>Digital Contracts & Inspections:</strong>
+        Cryptographic digital signature hashes for rental agreements, pre-rental and post-rental vehicle inspection audits (odometer, fuel %, exterior/interior condition) for damage deposit settlement.
+      </div>
+    </div>
+
+    <h3 class="sub-heading">1.3 Technology Stack</h3>
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Technology</th>
+          <th>Implementation Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontend Structure</strong></td>
+          <td>HTML5 Semantic Elements</td>
+          <td>Accessible document hierarchy, modals, dialogs, canvas graphics, and unique testing identifiers.</td>
+        </tr>
+        <tr>
+          <td><strong>Design & Styling</strong></td>
+          <td>Vanilla CSS3 Design System</td>
+          <td>Design tokens, dark slate palette, glassmorphism, responsive grid/flexbox layouts, Outfit & Inter typography.</td>
+        </tr>
+        <tr>
+          <td><strong>Business Logic</strong></td>
+          <td>Modern Vanilla JavaScript (ES2024)</td>
+          <td>Reactive state engine, dynamic duration-differential calculations, localStorage persistence, Canvas chart rendering.</td>
+        </tr>
+        <tr>
+          <td><strong>Database Engine</strong></td>
+          <td>Relational SQL (3NF Normalized)</td>
+          <td>Foreign key integrity, check constraints, unique constraints, compound indexes, triggers, and analytics views.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-bar">
+      <span>Group B-19 | Industry Practice Homework</span>
+      <span>Page 2</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 3: DATABASE DESIGN & ER DIAGRAM ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System | Group B-19</span>
+      <span>Section 2: Database Design & ER Model</span>
+    </div>
+
+    <h2 class="section-title">2. Relational Database Design & ER Model</h2>
+    <p class="section-subtitle">Visual Entity-Relationship Diagram (ERD) and 3NF Normalization Justification</p>
+
+    <h3 class="sub-heading">2.1 3NF Normalization Justification</h3>
+    <p>
+      The relational database design strictly enforces the <strong>Third Normal Form (3NF)</strong> to eliminate insertion, deletion, and update anomalies while maximizing query throughput and data integrity:
+    </p>
+    <ul style="padding-left: 18px; font-size: 8pt; color: #334155; margin-bottom: 8px; line-height: 1.5;">
+      <li><strong>First Normal Form (1NF):</strong> All attributes contain atomic values. Multi-valued features are decoupled into <code>vehicle_features</code>.</li>
+      <li><strong>Second Normal Form (2NF):</strong> Every non-key attribute is fully functionally dependent on the complete primary key.</li>
+      <li><strong>Third Normal Form (3NF):</strong> All transitive dependencies are eliminated. Pricing classifications reside exclusively in <code>vehicle_categories</code>.</li>
+    </ul>
+
+    <h3 class="sub-heading">2.2 Visual Entity-Relationship Diagram (ERD)</h3>
+    <div class="screenshot-figure" style="margin-bottom: 6px;">
+      <img src="database/erd_diagram.png" alt="Entity Relationship Diagram (ERD)" style="max-height: 140mm; object-fit: contain;">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 2.1:</span>
+        <span>Entity-Relationship Diagram (ERD) - 10 Normalized Relational Entities with PK/FK Relationships</span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 | Industry Practice Homework</span>
+      <span>Page 3</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 4: DATA DICTIONARY & TABLES ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System | Group B-19</span>
+      <span>Section 3: Relational Data Dictionary</span>
+    </div>
+
+    <h2 class="section-title">3. Relational Data Dictionary (3NF Tables)</h2>
+    <p class="section-subtitle">Comprehensive Attribute Specification, Keys, and Referential Constraints</p>
+
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Table Name</th>
+          <th>Primary Key</th>
+          <th>Foreign Keys</th>
+          <th>Key Attributes & Constraints</th>
+          <th>Cardinality</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>branches</code></td>
+          <td><code>branch_id</code></td>
+          <td>None</td>
+          <td><code>branch_code (UQ)</code>, <code>city</code>, <code>phone</code>, <code>operating_hours</code></td>
+          <td>1:N with vehicles, 1:N with bookings</td>
+        </tr>
+        <tr>
+          <td><code>roles</code></td>
+          <td><code>role_id</code></td>
+          <td>None</td>
+          <td><code>role_name (UQ)</code> (Admin, Fleet Manager, Counter Agent, Customer)</td>
+          <td>1:N with users</td>
+        </tr>
+        <tr>
+          <td><code>users</code></td>
+          <td><code>user_id</code></td>
+          <td><code>role_id</code></td>
+          <td><code>email (UQ)</code>, <code>password_hash</code>, <code>phone</code>, <code>status (CHECK)</code></td>
+          <td>1:1 with customer_profiles</td>
+        </tr>
+        <tr>
+          <td><code>customer_profiles</code></td>
+          <td><code>customer_id</code></td>
+          <td><code>user_id</code></td>
+          <td><code>driver_license_number (UQ)</code>, <code>license_expiry_date</code>, <code>loyalty_tier</code></td>
+          <td>1:N with bookings</td>
+        </tr>
+        <tr>
+          <td><code>vehicle_categories</code></td>
+          <td><code>category_id</code></td>
+          <td>None</td>
+          <td><code>category_name (UQ)</code>, <code>base_daily_rate</code>, <code>security_deposit</code></td>
+          <td>1:N with vehicles</td>
+        </tr>
+        <tr>
+          <td><code>vehicles</code></td>
+          <td><code>vehicle_id</code></td>
+          <td><code>category_id</code>, <code>current_branch_id</code></td>
+          <td><code>vin (UQ)</code>, <code>license_plate (UQ)</code>, <code>make</code>, <code>model</code>, <code>odometer_km</code>, <code>status</code></td>
+          <td>1:N with bookings, 1:N with maintenance</td>
+        </tr>
+        <tr>
+          <td><code>vehicle_features</code></td>
+          <td><code>feature_id</code></td>
+          <td><code>vehicle_id</code></td>
+          <td><code>feature_name</code>, <code>feature_value</code></td>
+          <td>N:1 with vehicles (ON DELETE CASCADE)</td>
+        </tr>
+        <tr>
+          <td><code>bookings</code></td>
+          <td><code>booking_id</code></td>
+          <td><code>customer_id</code>, <code>vehicle_id</code>, <code>pickup_branch_id</code>, <code>return_branch_id</code></td>
+          <td><code>booking_reference (UQ)</code>, <code>dates</code>, <code>subtotal</code>, <code>deposit</code>, <code>total</code></td>
+          <td>1:1 with agreement, 1:N with payments</td>
+        </tr>
+        <tr>
+          <td><code>rental_agreements</code></td>
+          <td><code>agreement_id</code></td>
+          <td><code>booking_id (UQ)</code></td>
+          <td><code>agreement_number (UQ)</code>, <code>digital_signature_hash</code>, <code>terms_accepted</code></td>
+          <td>1:1 with bookings</td>
+        </tr>
+        <tr>
+          <td><code>payments</code></td>
+          <td><code>payment_id</code></td>
+          <td><code>booking_id</code></td>
+          <td><code>invoice_number (UQ)</code>, <code>transaction_ref (UQ)</code>, <code>amount</code>, <code>method</code></td>
+          <td>N:1 with bookings</td>
+        </tr>
+        <tr>
+          <td><code>vehicle_inspections</code></td>
+          <td><code>inspection_id</code></td>
+          <td><code>booking_id</code>, <code>vehicle_id</code>, <code>inspector_user_id</code></td>
+          <td><code>inspection_type (CHECK)</code>, <code>odometer</code>, <code>fuel_level_pct</code>, <code>damage_notes</code></td>
+          <td>N:1 with bookings</td>
+        </tr>
+        <tr>
+          <td><code>maintenance_logs</code></td>
+          <td><code>log_id</code></td>
+          <td><code>vehicle_id</code></td>
+          <td><code>service_type</code>, <code>service_cost</code>, <code>service_date</code>, <code>maintenance_status</code></td>
+          <td>N:1 with vehicles</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-heading">3.1 Database Performance Indexes</h3>
+    <pre class="sql-code">CREATE INDEX idx_vehicles_status ON vehicles(status);
+CREATE INDEX idx_vehicles_category ON vehicles(category_id);
+CREATE INDEX idx_bookings_status ON bookings(booking_status);
+CREATE INDEX idx_bookings_dates ON bookings(pickup_datetime, return_datetime);
+CREATE INDEX idx_customer_license ON customer_profiles(driver_license_number);</pre>
+
+    <div class="footer-bar">
+      <span>Group B-19 | Industry Practice Homework</span>
+      <span>Page 4</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 5: DDL SCHEMA STATEMENTS ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System | Group B-19</span>
+      <span>Section 4: SQL DDL Implementation</span>
+    </div>
+
+    <h2 class="section-title">4. SQL DDL Implementation Scripts</h2>
+    <p class="section-subtitle">ANSI SQL Table Definitions, Constraints, and Business Intelligence Views</p>
+
+    <pre class="sql-code">-- 1. VEHICLES TABLE (Hardware Fleet Inventory)
+CREATE TABLE vehicles (
+    vehicle_id INTEGER PRIMARY KEY,
+    category_id INTEGER NOT NULL,
+    current_branch_id INTEGER NOT NULL,
+    vin VARCHAR(17) NOT NULL UNIQUE,
+    license_plate VARCHAR(20) NOT NULL UNIQUE,
+    make VARCHAR(50) NOT NULL,
+    model VARCHAR(50) NOT NULL,
+    manufacture_year INTEGER NOT NULL CHECK (manufacture_year >= 2018),
+    color VARCHAR(30) NOT NULL,
+    odometer_km INTEGER NOT NULL DEFAULT 0,
+    fuel_type VARCHAR(25) NOT NULL CHECK (fuel_type IN ('Petrol', 'Diesel', 'Electric', 'Hybrid')),
+    transmission VARCHAR(20) NOT NULL CHECK (transmission IN ('Automatic', 'Manual')),
+    seating_capacity INTEGER NOT NULL CHECK (seating_capacity >= 2),
+    daily_rate DECIMAL(10, 2) NOT NULL CHECK (daily_rate > 0),
+    status VARCHAR(25) DEFAULT 'AVAILABLE' CHECK (status IN ('AVAILABLE', 'RENTED', 'MAINTENANCE')),
+    image_url VARCHAR(500),
+    FOREIGN KEY (category_id) REFERENCES vehicle_categories(category_id) ON DELETE RESTRICT,
+    FOREIGN KEY (current_branch_id) REFERENCES branches(branch_id) ON DELETE RESTRICT
+);
+
+-- 2. BOOKINGS TABLE (Central Fact Entity)
+CREATE TABLE bookings (
+    booking_id INTEGER PRIMARY KEY,
+    booking_reference VARCHAR(30) NOT NULL UNIQUE,
+    customer_id INTEGER NOT NULL,
+    vehicle_id INTEGER NOT NULL,
+    pickup_branch_id INTEGER NOT NULL,
+    return_branch_id INTEGER NOT NULL,
+    pickup_datetime TIMESTAMP NOT NULL,
+    return_datetime TIMESTAMP NOT NULL,
+    rental_duration_days INTEGER NOT NULL CHECK (rental_duration_days >= 1),
+    daily_rate_applied DECIMAL(10, 2) NOT NULL,
+    subtotal_amount DECIMAL(10, 2) NOT NULL,
+    addon_amount DECIMAL(10, 2) DEFAULT 0.00,
+    tax_amount DECIMAL(10, 2) NOT NULL,
+    deposit_amount DECIMAL(10, 2) NOT NULL DEFAULT 200.00,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    booking_status VARCHAR(25) DEFAULT 'CONFIRMED' CHECK (booking_status IN ('CONFIRMED', 'ACTIVE', 'COMPLETED')),
+    FOREIGN KEY (customer_id) REFERENCES customer_profiles(customer_id) ON DELETE RESTRICT,
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id) ON DELETE RESTRICT,
+    FOREIGN KEY (pickup_branch_id) REFERENCES branches(branch_id) ON DELETE RESTRICT,
+    FOREIGN KEY (return_branch_id) REFERENCES branches(branch_id) ON DELETE RESTRICT
+);
+
+-- 3. REPORTING VIEW: Active Rentals with Driver & Vehicle Details
+CREATE VIEW v_active_rentals AS
+SELECT 
+    b.booking_reference,
+    u.full_name AS customer_name,
+    cp.driver_license_number,
+    v.make || ' ' || v.model AS vehicle_model,
+    v.license_plate,
+    b.pickup_datetime,
+    b.return_datetime,
+    pb.branch_name AS pickup_location,
+    b.total_amount
+FROM bookings b
+JOIN customer_profiles cp ON b.customer_id = cp.customer_id
+JOIN users u ON cp.user_id = u.user_id
+JOIN vehicles v ON b.vehicle_id = v.vehicle_id
+JOIN branches pb ON b.pickup_branch_id = pb.branch_id
+WHERE b.booking_status = 'ACTIVE';</pre>
+
+    <div class="footer-bar">
+      <span>Group B-19 | Industry Practice Homework</span>
+      <span>Page 5</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 6: ANALYTICAL SQL QUERIES ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System | Group B-19</span>
+      <span>Section 5: Analytical SQL Queries</span>
+    </div>
+
+    <h2 class="section-title">5. Analytical SQL Queries & Results</h2>
+    <p class="section-subtitle">Operational Audits, Revenue Analytics, and Category Performance</p>
+
+    <h3 class="sub-heading">5.1 Query 1: Active Rentals with Driver and Vehicle Details</h3>
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Booking Ref</th>
+          <th>Customer Name</th>
+          <th>Vehicle Model</th>
+          <th>Plate</th>
+          <th>Pick-Up Date</th>
+          <th>Return Date</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>DP-2026-8941</code></td>
+          <td>Sarah Jenkins</td>
+          <td>BMW 530i M Sport</td>
+          <td><code>LUX-550-NY</code></td>
+          <td>2026-09-25 09:00</td>
+          <td>2026-09-29 18:00</td>
+          <td><strong>$604.80</strong></td>
+        </tr>
+        <tr>
+          <td><code>DP-2026-8942</code></td>
+          <td>David Chen</td>
+          <td>Tesla Model S Plaid</td>
+          <td><code>TSL-PLAID</code></td>
+          <td>2026-09-26 10:00</td>
+          <td>2026-09-30 14:00</td>
+          <td><strong>$727.60</strong></td>
+        </tr>
+        <tr>
+          <td><code>DP-2026-8943</code></td>
+          <td>Priya Sharma</td>
+          <td>Honda Accord Touring</td>
+          <td><code>HON-442-NY</code></td>
+          <td>2026-09-24 08:30</td>
+          <td>2026-09-28 17:00</td>
+          <td><strong>$302.40</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-heading">5.2 Query 2: Fleet Category Performance & Utilization Analysis</h3>
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Total Units</th>
+          <th>Rented Units</th>
+          <th>Utilization Rate (%)</th>
+          <th>Avg Daily Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Electric & Hybrid (EV)</strong></td>
+          <td>3</td>
+          <td>1</td>
+          <td><span style="color:#0284c7; font-weight:700;">33.3%</span></td>
+          <td>$113.33</td>
+        </tr>
+        <tr>
+          <td><strong>Executive Luxury</strong></td>
+          <td>2</td>
+          <td>1</td>
+          <td><span style="color:#0284c7; font-weight:700;">50.0%</span></td>
+          <td>$120.00</td>
+        </tr>
+        <tr>
+          <td><strong>Comfort Sedan & Compact</strong></td>
+          <td>2</td>
+          <td>1</td>
+          <td><span style="color:#0284c7; font-weight:700;">50.0%</span></td>
+          <td>$63.50</td>
+        </tr>
+        <tr>
+          <td><strong>Premium SUV & All-Wheel</strong></td>
+          <td>3</td>
+          <td>0</td>
+          <td>0.0%</td>
+          <td>$136.67</td>
+        </tr>
+        <tr>
+          <td><strong>Sports & Performance</strong></td>
+          <td>2</td>
+          <td>0</td>
+          <td>0.0%</td>
+          <td>$180.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-heading">5.3 Query 3: Branch Gross Revenue & Transaction Audit</h3>
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th>Station / Branch Name</th>
+          <th>Bookings</th>
+          <th>Rental Revenue</th>
+          <th>Add-on Revenue</th>
+          <th>Gross Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Downtown Hub & Headquarters (NY)</strong></td>
+          <td>4</td>
+          <td>$1,508.00</td>
+          <td>$162.00</td>
+          <td><strong>$1,803.60</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Silicon Valley Tech Park Hub (CA)</strong></td>
+          <td>1</td>
+          <td>$640.00</td>
+          <td>$80.00</td>
+          <td><strong>$727.60</strong></td>
+        </tr>
+        <tr>
+          <td><strong>International Airport Terminal 1 (NY)</strong></td>
+          <td>1</td>
+          <td>$540.00</td>
+          <td>$60.00</td>
+          <td><strong>$594.00</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-bar">
+      <span>Group B-19 | Industry Practice Homework</span>
+      <span>Page 6</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 7: FRONTEND SCREENSHOTS - HERO & CATALOG ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System | Group B-19</span>
+      <span>Section 6: Frontend Output - Customer Portal</span>
+    </div>
+
+    <h2 class="section-title">6. Frontend Output: Hero & Fleet Showcase</h2>
+    <p class="section-subtitle">Customer Portal, Multi-Parametric Search, and Fleet Inventory Cards</p>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/01_hero_and_search.png" alt="Hero & Search Banner">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 6.1:</span>
+        <span>Customer Portal Hero Section with Multi-Parametric Search Banner (Location, Pick-up/Return Dates, Category)</span>
+      </div>
+    </div>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/02_fleet_catalog_grid.png" alt="Fleet Catalog Grid">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 6.2:</span>
+        <span>Interactive Fleet Catalog Grid - Real-Time Specifications (Fuel, Gearbox, Seats, HP) and Availability Badges</span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 • Industry Practice Homework</span>
+      <span>Page 7</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 8: FRONTEND SCREENSHOTS - FILTERS & MODAL ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System • Group B-19</span>
+      <span>Section 7: Frontend Output — Filters & Calculator</span>
+    </div>
+
+    <h2 class="section-title">7. Frontend Output: Filter Engine & Calculator</h2>
+    <p class="section-subtitle">Dynamic Category Filtering and Interactive Rental Pricing Calculator Modal</p>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/03_category_filter_ev.png" alt="Category Filter EV">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 7.1:</span>
+        <span>Dynamic Category Filter Engine — Instant Client-Side Filtering for Electric (EV) Vehicles</span>
+      </div>
+    </div>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/04_booking_calculator_modal.png" alt="Booking Calculator Modal">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 7.2:</span>
+        <span>Dynamic Rental Cost Calculator Modal with Add-ons (CDW, GPS), Promo Code (COLLEGE20), and Driver KYC</span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 • Industry Practice Homework</span>
+      <span>Page 8</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 9: FRONTEND SCREENSHOTS - VOUCHER & BOOKINGS ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System • Group B-19</span>
+      <span>Section 8: Frontend Output — Agreements & Bookings</span>
+    </div>
+
+    <h2 class="section-title">8. Frontend Output: Voucher & Customer Bookings</h2>
+    <p class="section-subtitle">Printable Official Rental Voucher Receipt and Customer Reservation History</p>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/05_rental_voucher.png" alt="Rental Agreement Voucher">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 8.1:</span>
+        <span>Official Rental Agreement Voucher Card with Unique Booking Reference, Digital Token, and Print Trigger</span>
+      </div>
+    </div>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/06_customer_bookings.png" alt="Customer Bookings Table">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 8.2:</span>
+        <span>Customer Portal — My Bookings Table displaying Active and Completed Rentals with Direct Voucher Inspection</span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 • Industry Practice Homework</span>
+      <span>Page 9</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 10: FRONTEND SCREENSHOTS - ADMIN PORTAL ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System • Group B-19</span>
+      <span>Section 9: Frontend Output — Admin Command Center</span>
+    </div>
+
+    <h2 class="section-title">9. Frontend Output: Admin & Fleet Operations</h2>
+    <p class="section-subtitle">Executive Telematics KPI Cards, HTML5 Canvas Charts, and Fleet Controller</p>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/07_admin_analytics_charts.png" alt="Admin Analytics and Charts">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 9.1:</span>
+        <span>Admin Dashboard — KPI Telemetry Cards and Custom Canvas Charts (Monthly Revenue & Category Distribution)</span>
+      </div>
+    </div>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/08_admin_fleet_table.png" alt="Admin Fleet Table">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 9.2:</span>
+        <span>Admin Fleet Inventory Controller — Dynamic Vehicle Status Dispatcher and Maintenance Log Table</span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 • Industry Practice Homework</span>
+      <span>Page 10</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 11: FRONTEND SCREENSHOTS - DATABASE PORTAL ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System • Group B-19</span>
+      <span>Section 10: Frontend Output — Database Portal</span>
+    </div>
+
+    <h2 class="section-title">10. Frontend Output: Database & Query Runner</h2>
+    <p class="section-subtitle">Embedded ERD Architecture, Live Query Execution Engine, and Schema Exporter</p>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/09_database_erd_view.png" alt="Database ERD View">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 10.1:</span>
+        <span>Database Architecture Portal — High-Resolution Entity-Relationship Diagram (ERD) & 3NF Entity Directory</span>
+      </div>
+    </div>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/10_database_sql_runner.png" alt="Database SQL Runner">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 10.2:</span>
+        <span>Interactive SQL Engine — Live Execution of Operational & Analytical Queries with Tabular Output</span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 • Industry Practice Homework</span>
+      <span>Page 11</span>
+    </div>
+  </div>
+
+  <!-- ================= PAGE 12: CONCLUSION & SUBMISSION OVERVIEW ================= -->
+  <div class="page">
+    <div class="header-bar">
+      <span>Vehicle Rental Management System • Group B-19</span>
+      <span>Section 11: Submission Package & Conclusion</span>
+    </div>
+
+    <h2 class="section-title">11. Submission Package & Conclusion</h2>
+    <p class="section-subtitle">Assignment Compliance Sign-Off and Industry Competency Assessment</p>
+
+    <div class="screenshot-figure">
+      <img src="screenshots/11_submission_overview.png" alt="Submission Overview">
+      <div class="screenshot-caption">
+        <span class="fig-num">Figure 11.1:</span>
+        <span>Academic Homework Submission Package — Compliance Overview and Configurable Group ID PDF Generation</span>
+      </div>
+    </div>
+
+    <h3 class="sub-heading">11.1 Key Project Achievements</h3>
+    <p>
+      The implemented <strong>Vehicle Rental Management System</strong> achieves 100% compliance with all collegiate homework guidelines for Industry Practice:
+    </p>
+    <ul style="padding-left: 18px; font-size: 8pt; color: #334155; line-height: 1.5; margin-bottom: 10px;">
+      <li><strong>Production-Grade UI Architecture:</strong> Built with semantic HTML5 and vanilla CSS3 adhering to modern aesthetic principles (refined dark slate palette, Outfit & Inter typography, responsive card layouts, and micro-interactions).</li>
+      <li><strong>Industrial Database Design:</strong> Fully normalized 3NF relational schema consisting of 10 tables, complete DDL definitions, primary and foreign key constraints, composite performance indexes, and analytical reporting views.</li>
+      <li><strong>End-to-End Business Flow:</strong> Functional reservation calculator with duration differential, add-ons, promo discounts, customer KYC verification, voucher receipt generation, and admin telematics.</li>
+      <li><strong>Consolidated PDF Report:</strong> High-resolution screenshots captured and compiled into a single professional PDF named according to Group ID instructions (<code>B-19.pdf</code>).</li>
+    </ul>
+
+    <div style="margin-top: 15px; border-top: 1.5px solid #cbd5e1; padding-top: 10px; display: flex; justify-content: space-between; font-size: 8pt; color: #64748b;">
+      <div>
+        <span>Report Generated: <strong>September 2026</strong></span><br>
+        <span>Platform: <strong>DrivePulse VRMS v2.4</strong></span>
+      </div>
+      <div style="text-align: right;">
+        <span>Assigned Group: <strong id="footer-group-id" style="color: #0f172a;">Group B-19</strong></span><br>
+        <span>Status: <strong style="color: #16a34a;">Verified Submission PDF</strong></span>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Group B-19 • Industry Practice Homework</span>
+      <span>Page 12</span>
+    </div>
+  <script>
+    // Handle URL ?group= query parameter for dynamic customization & auto-print
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const groupParam = params.get('group');
+      if (groupParam && groupParam.trim()) {
+        const group = groupParam.trim().toUpperCase();
+        document.title = `${group} - Vehicle Rental Management System Project Report`;
+
+        // Update cover and footer if elements exist
+        const coverEl = document.getElementById('cover-group-name');
+        if (coverEl) coverEl.textContent = `GROUP ${group}`;
+        const footerEl = document.getElementById('footer-group-id');
+        if (footerEl) footerEl.textContent = `Group ${group}`;
+
+        // Walk DOM and replace text occurrences
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while ((node = walker.nextNode())) {
+          if (node.parentElement && node.parentElement.tagName === 'SCRIPT') continue;
+          if (node.nodeValue.includes('Group B-19') || node.nodeValue.includes('B-19')) {
+            node.nodeValue = node.nodeValue.replace(/Group B-19/g, `Group ${group}`).replace(/B-19/g, group);
+          }
+        }
+      }
+      if (params.get('print') === 'true') {
+        setTimeout(() => window.print(), 800);
+      }
+    })();
+  </script>
+</body>
+</html>

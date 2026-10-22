@@ -1,0 +1,294 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" width="1600" height="1100" style="background:#0b0f19; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="headerGradPrimary" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="headerGradIndigo" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4338ca" />
+    </linearGradient>
+    <linearGradient id="headerGradCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0e7490" />
+    </linearGradient>
+    <linearGradient id="headerGradEmerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="headerGradAmber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="headerGradRose" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#be185d" />
+    </linearGradient>
+
+    <!-- Filters for subtle glow/shadow -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="circleEnd" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5">
+      <circle cx="5" cy="5" r="3" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <style>
+    .erd-title { font-size: 26px; font-weight: 800; fill: #f8fafc; letter-spacing: -0.5px; }
+    .erd-sub { font-size: 14px; fill: #94a3b8; }
+    .table-card { fill: #131b2e; stroke: #1e293b; stroke-width: 1.5; rx: 8px; }
+    .tbl-title { font-size: 13px; font-weight: 700; fill: #ffffff; letter-spacing: 0.5px; }
+    .col-pk { font-size: 12px; fill: #38bdf8; font-family: 'Consolas', monospace; font-weight: 600; }
+    .col-fk { font-size: 12px; fill: #fbbf24; font-family: 'Consolas', monospace; font-weight: 500; }
+    .col-reg { font-size: 12px; fill: #cbd5e1; font-family: 'Consolas', monospace; }
+    .col-type { font-size: 11px; fill: #64748b; font-family: 'Consolas', monospace; }
+    .rel-line { stroke: #38bdf8; stroke-width: 1.8; fill: none; stroke-dasharray: 4, 3; opacity: 0.75; }
+    .rel-label { font-size: 10px; fill: #38bdf8; font-weight: 600; }
+    .badge { font-size: 10px; font-weight: 700; }
+  </style>
+
+  <!-- Title Banner -->
+  <rect x="40" y="25" width="1520" height="75" rx="10" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
+  <circle cx="75" cy="62" r="18" fill="#3b82f6" opacity="0.2" />
+  <text x="75" y="68" font-size="20" text-anchor="middle" fill="#38bdf8">🚗</text>
+  <text x="110" y="55" class="erd-title">VEHICLE RENTAL MANAGEMENT SYSTEM (VRMS) — 3NF ENTITY RELATIONSHIP MODEL</text>
+  <text x="110" y="78" class="erd-sub">Industry Practice Project • Group B-19 • Complete Relational Schema (10 Entities, 4 Foreign Key Clusters, Normalized to 3NF)</text>
+  
+  <rect x="1340" y="42" width="200" height="40" rx="6" fill="#1e293b" />
+  <text x="1440" y="66" text-anchor="middle" font-size="12" fill="#38bdf8" font-weight="700">SUBMISSION: GROUP B-19</text>
+
+  <!-- ================= RELATIONAL CONNECTIONS (LINES) ================= -->
+  <!-- ROLES (70, 150) -> USERS (70, 370) -->
+  <path d="M 180 300 L 180 370" class="rel-line" marker-end="url(#arrow)" />
+  <text x="188" y="340" class="rel-label">1 : N</text>
+
+  <!-- USERS (70, 370) -> CUSTOMER_PROFILES (70, 670) -->
+  <path d="M 180 575 L 180 660" class="rel-line" marker-end="url(#arrow)" />
+  <text x="188" y="620" class="rel-label">1 : 1</text>
+
+  <!-- CUSTOMER_PROFILES (70, 670) -> BOOKINGS (590, 480) -->
+  <path d="M 320 740 L 450 740 L 450 630 L 580 630" class="rel-line" marker-end="url(#arrow)" />
+  <text x="455" y="680" class="rel-label">1 : N</text>
+
+  <!-- VEHICLE_CATEGORIES (590, 150) -> VEHICLES (980, 150) -->
+  <path d="M 830 220 L 980 220" class="rel-line" marker-end="url(#arrow)" />
+  <text x="890" y="210" class="rel-label">1 : N</text>
+
+  <!-- BRANCHES (1310, 150) -> VEHICLES (980, 150) -->
+  <path d="M 1310 270 L 1220 270" class="rel-line" marker-end="url(#arrow)" />
+  <text x="1240" y="260" class="rel-label">1 : N</text>
+
+  <!-- VEHICLES (980, 150) -> BOOKINGS (590, 480) -->
+  <path d="M 980 360 L 890 360 L 890 530 L 830 530" class="rel-line" marker-end="url(#arrow)" />
+  <text x="900" y="440" class="rel-label">1 : N</text>
+
+  <!-- VEHICLES (980, 150) -> MAINTENANCE_LOGS (1310, 520) -->
+  <path d="M 1220 380 L 1310 380 L 1310 520" class="rel-line" marker-end="url(#arrow)" />
+  <text x="1245" y="450" class="rel-label">1 : N</text>
+
+  <!-- BOOKINGS (590, 480) -> RENTAL_AGREEMENTS (590, 890) -->
+  <path d="M 700 810 L 700 890" class="rel-line" marker-end="url(#arrow)" />
+  <text x="708" y="855" class="rel-label">1 : 1</text>
+
+  <!-- BOOKINGS (590, 480) -> PAYMENTS (250, 900) -->
+  <path d="M 590 730 L 460 730 L 460 900" class="rel-line" marker-end="url(#arrow)" />
+  <text x="468" y="810" class="rel-label">1 : N</text>
+
+  <!-- BOOKINGS (590, 480) -> VEHICLE_INSPECTIONS (980, 720) -->
+  <path d="M 830 680 L 980 680 L 980 720" class="rel-line" marker-end="url(#arrow)" />
+  <text x="895" y="670" class="rel-label">1 : N</text>
+
+
+  <!-- ================= ENTITY 1: ROLES ================= -->
+  <g transform="translate(60, 140)" filter="url(#cardShadow)">
+    <rect width="250" height="150" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 242 0 Q 250 0 250 8 L 250 36 L 0 36 Z" fill="url(#headerGradPrimary)" />
+    <text x="14" y="24" class="tbl-title">🛡️ ROLES</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 role_id</text><text x="160" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-reg">role_name</text><text x="160" y="80" class="col-type">VARCHAR(50)</text>
+    <text x="14" y="102" class="col-reg">description</text><text x="160" y="102" class="col-type">VARCHAR(255)</text>
+    <text x="14" y="124" class="col-reg">created_at</text><text x="160" y="124" class="col-type">TIMESTAMP</text>
+  </g>
+
+  <!-- ================= ENTITY 2: USERS ================= -->
+  <g transform="translate(60, 360)" filter="url(#cardShadow)">
+    <rect width="250" height="210" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 242 0 Q 250 0 250 8 L 250 36 L 0 36 Z" fill="url(#headerGradIndigo)" />
+    <text x="14" y="24" class="tbl-title">👤 USERS</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 user_id</text><text x="160" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 role_id</text><text x="160" y="80" class="col-type">INT [FK]</text>
+    <text x="14" y="102" class="col-reg">full_name</text><text x="160" y="102" class="col-type">VARCHAR(120)</text>
+    <text x="14" y="124" class="col-reg">email</text><text x="160" y="124" class="col-type">VARCHAR(120) [UQ]</text>
+    <text x="14" y="146" class="col-reg">password_hash</text><text x="160" y="146" class="col-type">VARCHAR(255)</text>
+    <text x="14" y="168" class="col-reg">phone_number</text><text x="160" y="168" class="col-type">VARCHAR(25)</text>
+    <text x="14" y="190" class="col-reg">status</text><text x="160" y="190" class="col-type">VARCHAR(20)</text>
+  </g>
+
+  <!-- ================= ENTITY 3: CUSTOMER_PROFILES ================= -->
+  <g transform="translate(60, 640)" filter="url(#cardShadow)">
+    <rect width="260" height="230" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 252 0 Q 260 0 260 8 L 260 36 L 0 36 Z" fill="url(#headerGradCyan)" />
+    <text x="14" y="24" class="tbl-title">🪪 CUSTOMER_PROFILES</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 customer_id</text><text x="170" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 user_id</text><text x="170" y="80" class="col-type">INT [FK, UQ]</text>
+    <text x="14" y="102" class="col-reg">driver_license_no</text><text x="170" y="102" class="col-type">VARCHAR(50) [UQ]</text>
+    <text x="14" y="124" class="col-reg">license_expiry</text><text x="170" y="124" class="col-type">DATE</text>
+    <text x="14" y="146" class="col-reg">issuing_state</text><text x="170" y="146" class="col-type">VARCHAR(60)</text>
+    <text x="14" y="168" class="col-reg">verification_stat</text><text x="170" y="168" class="col-type">VARCHAR(25)</text>
+    <text x="14" y="190" class="col-reg">loyalty_tier</text><text x="170" y="190" class="col-type">VARCHAR(20)</text>
+    <text x="14" y="212" class="col-reg">loyalty_points</text><text x="170" y="212" class="col-type">INT</text>
+  </g>
+
+  <!-- ================= ENTITY 4: VEHICLE_CATEGORIES ================= -->
+  <g transform="translate(580, 140)" filter="url(#cardShadow)">
+    <rect width="250" height="170" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 242 0 Q 250 0 250 8 L 250 36 L 0 36 Z" fill="url(#headerGradEmerald)" />
+    <text x="14" y="24" class="tbl-title">🏷️ VEHICLE_CATEGORIES</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 category_id</text><text x="160" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-reg">category_name</text><text x="160" y="80" class="col-type">VARCHAR(60) [UQ]</text>
+    <text x="14" y="102" class="col-reg">base_daily_rate</text><text x="160" y="102" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="124" class="col-reg">security_deposit</text><text x="160" y="124" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="146" class="col-reg">min_driver_age</text><text x="160" y="146" class="col-type">INT</text>
+  </g>
+
+  <!-- ================= ENTITY 5: VEHICLES ================= -->
+  <g transform="translate(980, 140)" filter="url(#cardShadow)">
+    <rect width="250" height="330" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 242 0 Q 250 0 250 8 L 250 36 L 0 36 Z" fill="url(#headerGradPrimary)" />
+    <text x="14" y="24" class="tbl-title">🚘 VEHICLES</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 vehicle_id</text><text x="160" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 category_id</text><text x="160" y="80" class="col-type">INT [FK]</text>
+    <text x="14" y="102" class="col-fk">🔗 branch_id</text><text x="160" y="102" class="col-type">INT [FK]</text>
+    <text x="14" y="124" class="col-reg">vin</text><text x="160" y="124" class="col-type">VARCHAR(17) [UQ]</text>
+    <text x="14" y="146" class="col-reg">license_plate</text><text x="160" y="146" class="col-type">VARCHAR(20) [UQ]</text>
+    <text x="14" y="168" class="col-reg">make</text><text x="160" y="168" class="col-type">VARCHAR(50)</text>
+    <text x="14" y="190" class="col-reg">model</text><text x="160" y="190" class="col-type">VARCHAR(50)</text>
+    <text x="14" y="212" class="col-reg">year</text><text x="160" y="212" class="col-type">INT</text>
+    <text x="14" y="234" class="col-reg">odometer_km</text><text x="160" y="234" class="col-type">INT</text>
+    <text x="14" y="256" class="col-reg">fuel_type</text><text x="160" y="256" class="col-type">VARCHAR(25)</text>
+    <text x="14" y="278" class="col-reg">transmission</text><text x="160" y="278" class="col-type">VARCHAR(20)</text>
+    <text x="14" y="300" class="col-reg">daily_rate</text><text x="160" y="300" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="322" class="col-reg">status</text><text x="160" y="322" class="col-type">VARCHAR(25)</text>
+  </g>
+
+  <!-- ================= ENTITY 6: BRANCHES ================= -->
+  <g transform="translate(1310, 140)" filter="url(#cardShadow)">
+    <rect width="240" height="230" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 232 0 Q 240 0 240 8 L 240 36 L 0 36 Z" fill="url(#headerGradRose)" />
+    <text x="14" y="24" class="tbl-title">🏢 BRANCHES / HUBS</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 branch_id</text><text x="150" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-reg">branch_name</text><text x="150" y="80" class="col-type">VARCHAR(100)</text>
+    <text x="14" y="102" class="col-reg">branch_code</text><text x="150" y="102" class="col-type">VARCHAR(10) [UQ]</text>
+    <text x="14" y="124" class="col-reg">city</text><text x="150" y="124" class="col-type">VARCHAR(80)</text>
+    <text x="14" y="146" class="col-reg">state</text><text x="150" y="146" class="col-type">VARCHAR(50)</text>
+    <text x="14" y="168" class="col-reg">phone_number</text><text x="150" y="168" class="col-type">VARCHAR(25)</text>
+    <text x="14" y="190" class="col-reg">operating_hours</text><text x="150" y="190" class="col-type">VARCHAR(100)</text>
+    <text x="14" y="212" class="col-reg">is_active</text><text x="150" y="212" class="col-type">BOOLEAN</text>
+  </g>
+
+  <!-- ================= ENTITY 7: BOOKINGS (CENTRAL CORE) ================= -->
+  <g transform="translate(580, 480)" filter="url(#cardShadow)">
+    <rect width="260" height="330" class="table-card" stroke="#3b82f6" stroke-width="2" />
+    <path d="M 0 8 Q 0 0 8 0 L 252 0 Q 260 0 260 8 L 260 36 L 0 36 Z" fill="url(#headerGradPrimary)" />
+    <text x="14" y="24" class="tbl-title">📅 BOOKINGS (CORE)</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 booking_id</text><text x="170" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-reg">booking_ref</text><text x="170" y="80" class="col-type">VARCHAR(30) [UQ]</text>
+    <text x="14" y="102" class="col-fk">🔗 customer_id</text><text x="170" y="102" class="col-type">INT [FK]</text>
+    <text x="14" y="124" class="col-fk">🔗 vehicle_id</text><text x="170" y="124" class="col-type">INT [FK]</text>
+    <text x="14" y="146" class="col-fk">🔗 pickup_branch_id</text><text x="170" y="146" class="col-type">INT [FK]</text>
+    <text x="14" y="168" class="col-fk">🔗 return_branch_id</text><text x="170" y="168" class="col-type">INT [FK]</text>
+    <text x="14" y="190" class="col-reg">pickup_datetime</text><text x="170" y="190" class="col-type">TIMESTAMP</text>
+    <text x="14" y="212" class="col-reg">return_datetime</text><text x="170" y="212" class="col-type">TIMESTAMP</text>
+    <text x="14" y="234" class="col-reg">duration_days</text><text x="170" y="234" class="col-type">INT</text>
+    <text x="14" y="256" class="col-reg">subtotal_amount</text><text x="170" y="256" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="278" class="col-reg">deposit_amount</text><text x="170" y="278" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="300" class="col-reg">total_amount</text><text x="170" y="300" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="322" class="col-reg">booking_status</text><text x="170" y="322" class="col-type">VARCHAR(25)</text>
+  </g>
+
+  <!-- ================= ENTITY 8: RENTAL_AGREEMENTS ================= -->
+  <g transform="translate(580, 890)" filter="url(#cardShadow)">
+    <rect width="250" height="170" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 242 0 Q 250 0 250 8 L 250 36 L 0 36 Z" fill="url(#headerGradIndigo)" />
+    <text x="14" y="24" class="tbl-title">📜 RENTAL_AGREEMENTS</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 agreement_id</text><text x="160" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 booking_id</text><text x="160" y="80" class="col-type">INT [FK, UQ]</text>
+    <text x="14" y="102" class="col-reg">agreement_number</text><text x="160" y="102" class="col-type">VARCHAR(35) [UQ]</text>
+    <text x="14" y="124" class="col-reg">terms_accepted</text><text x="160" y="124" class="col-type">BOOLEAN</text>
+    <text x="14" y="146" class="col-reg">digital_signature</text><text x="160" y="146" class="col-type">VARCHAR(128)</text>
+  </g>
+
+  <!-- ================= ENTITY 9: PAYMENTS ================= -->
+  <g transform="translate(250, 890)" filter="url(#cardShadow)">
+    <rect width="240" height="170" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 232 0 Q 240 0 240 8 L 240 36 L 0 36 Z" fill="url(#headerGradEmerald)" />
+    <text x="14" y="24" class="tbl-title">💳 PAYMENTS</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 payment_id</text><text x="150" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 booking_id</text><text x="150" y="80" class="col-type">INT [FK]</text>
+    <text x="14" y="102" class="col-reg">invoice_number</text><text x="150" y="102" class="col-type">VARCHAR(35) [UQ]</text>
+    <text x="14" y="124" class="col-reg">amount</text><text x="150" y="124" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="146" class="col-reg">payment_method</text><text x="150" y="146" class="col-type">VARCHAR(30)</text>
+  </g>
+
+  <!-- ================= ENTITY 10: VEHICLE_INSPECTIONS ================= -->
+  <g transform="translate(980, 720)" filter="url(#cardShadow)">
+    <rect width="250" height="230" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 242 0 Q 250 0 250 8 L 250 36 L 0 36 Z" fill="url(#headerGradAmber)" />
+    <text x="14" y="24" class="tbl-title">🔍 VEHICLE_INSPECTIONS</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 inspection_id</text><text x="160" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 booking_id</text><text x="160" y="80" class="col-type">INT [FK]</text>
+    <text x="14" y="102" class="col-fk">🔗 vehicle_id</text><text x="160" y="102" class="col-type">INT [FK]</text>
+    <text x="14" y="124" class="col-reg">inspection_type</text><text x="160" y="124" class="col-type">VARCHAR(20)</text>
+    <text x="14" y="146" class="col-reg">odometer_reading</text><text x="160" y="146" class="col-type">INT</text>
+    <text x="14" y="168" class="col-reg">fuel_level_pct</text><text x="160" y="168" class="col-type">INT</text>
+    <text x="14" y="190" class="col-reg">exterior_cond</text><text x="160" y="190" class="col-type">VARCHAR(50)</text>
+    <text x="14" y="212" class="col-reg">passed_safety</text><text x="160" y="212" class="col-type">BOOLEAN</text>
+  </g>
+
+  <!-- ================= ENTITY 11: MAINTENANCE_LOGS ================= -->
+  <g transform="translate(1310, 520)" filter="url(#cardShadow)">
+    <rect width="240" height="220" class="table-card" />
+    <path d="M 0 8 Q 0 0 8 0 L 232 0 Q 240 0 240 8 L 240 36 L 0 36 Z" fill="url(#headerGradRose)" />
+    <text x="14" y="24" class="tbl-title">🔧 MAINTENANCE_LOGS</text>
+    
+    <text x="14" y="58" class="col-pk">🔑 log_id</text><text x="150" y="58" class="col-type">INT [PK]</text>
+    <text x="14" y="80" class="col-fk">🔗 vehicle_id</text><text x="150" y="80" class="col-type">INT [FK]</text>
+    <text x="14" y="102" class="col-reg">service_type</text><text x="150" y="102" class="col-type">VARCHAR(60)</text>
+    <text x="14" y="124" class="col-reg">service_cost</text><text x="150" y="124" class="col-type">DECIMAL(10,2)</text>
+    <text x="14" y="146" class="col-reg">service_date</text><text x="150" y="146" class="col-type">DATE</text>
+    <text x="14" y="168" class="col-reg">odometer_at_serv</text><text x="150" y="168" class="col-type">INT</text>
+    <text x="14" y="190" class="col-reg">maint_status</text><text x="150" y="190" class="col-type">VARCHAR(25)</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(1250, 930)">
+    <rect width="300" height="130" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
+    <text x="15" y="24" font-size="12" font-weight="700" fill="#f8fafc">RELATIONAL ERD LEGEND</text>
+    <text x="15" y="48" font-size="11" fill="#38bdf8">🔑 Primary Key (PK) - Unique Identifier</text>
+    <text x="15" y="70" font-size="11" fill="#fbbf24">🔗 Foreign Key (FK) - Referential Integrity</text>
+    <line x1="15" y1="92" x2="60" y2="92" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,3" />
+    <text x="70" y="96" font-size="11" fill="#94a3b8">Relationship (1-to-N or 1-to-1)</text>
+    <text x="15" y="118" font-size="11" fill="#10b981">● 3NF Normalized Schema Design</text>
+  </g>
+
+</svg>

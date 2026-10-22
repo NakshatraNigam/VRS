@@ -1,0 +1,25 @@
+{
+  "name": "drivepulse-vehicle-rental-system",
+  "version": "1.0.0",
+  "description": "DrivePulse — Enterprise Vehicle Rental Management System (VRMS) featuring 3NF Relational Database Design, Real-Time Fleet Telematics, Dynamic Pricing Engine, and Academic Submission Reporting.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js",
+    "build": "node -e \"console.log('✓ Build ready for Vercel deployment')\"",
+    "generate-pdf": "node generate_pdf.js",
+    "screenshots": "node capture_screenshots.js"
+  },
+  "keywords": [
+    "vehicle-rental-system",
+    "vrms",
+    "database-design",
+    "sqlite",
+    "3nf-normalization",
+    "vanilla-js",
+    "academic-project"
+  ],
+  "author": "Group B-19",
+  "license": "MIT"
+}
