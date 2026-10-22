@@ -49,22 +49,53 @@ vehicle-rental-system/
 
 ## 🚀 How to Run the Web Application
 
-### Option A: Direct Browser Launch (Zero Dependencies)
-Simply double-click `index.html` or open it in any web browser (Google Chrome, Microsoft Edge, Firefox, Brave):
+### Option 1: Native Node Dev Server (Zero Dependencies)
+```powershell
+npm run dev
+# or
+node server.js
+```
+The server will boot instantly at **`http://localhost:3000`**.
+
+### Option 2: Direct Browser Launch
+Simply double-click `index.html` or run:
 ```powershell
 Start-Process "index.html"
 ```
 
-### Option B: Local HTTP Server (Recommended)
-Run using Node's lightweight `serve` or Python:
-```powershell
-# Using Node serve
-npx serve .
+---
 
-# Or using Python 3
-python -m http.server 8080
+## ☁️ How to Deploy Live on Vercel
+
+The repository is pre-configured with `vercel.json` and `package.json` for **1-click zero-config deployment**.
+
+### Method A: Deploy via Vercel CLI
+Run the following in the project root:
+```powershell
+npx vercel
 ```
-Then navigate to `http://localhost:8080` in your web browser.
+- Set up and deploy: **`Y`**
+- Which scope: *(Select your personal/team account)*
+- Link to existing project: **`N`**
+- What's your project's name: **`drivepulse-vehicle-rental`**
+- In which directory is your code located: **`./`**
+- Want to modify these settings: **`N`**
+
+To deploy directly to production:
+```powershell
+npx vercel --prod
+```
+
+### Method B: Deploy via GitHub (Recommended for Continuous Deployment)
+1. Push this repository to your GitHub account:
+   ```powershell
+   git remote add origin https://github.com/YOUR_USERNAME/drivepulse-vehicle-rental.git
+   git branch -M main
+   git push -u origin main
+   ```
+2. Go to [vercel.com/new](https://vercel.com/new).
+3. Import your `drivepulse-vehicle-rental` repository.
+4. Click **Deploy**. Vercel will automatically build and publish your site with a live `https://*.vercel.app` URL!
 
 ---
 
