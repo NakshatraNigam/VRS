@@ -1,0 +1,5 @@
+scripts/
+database/generate_erd.py
+database/vrms.db
+.git
+.gitignore
